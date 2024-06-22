@@ -1,5 +1,77 @@
 <?php
 include 'db.php';
+
+$errors = [];
+
+// Χειρισμός φόρμας εγγραφής
+if (isset($_POST['register'])) {
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $email = $_POST['email'];
+
+    // Έλεγχοι εγκυρότητας
+    if (!preg_match("/^[a-zA-Z]+$/", $first_name)) {
+        $errors[] = "Το όνομα πρέπει να περιέχει μόνο χαρακτήρες.";
+    }
+    if (!preg_match("/^[a-zA-Z]+$/", $last_name)) {
+        $errors[] = "Το επώνυμο πρέπει να περιέχει μόνο χαρακτήρες.";
+    }
+    if (strlen($password) < 4 || strlen($password) > 10 || !preg_match("/\d/", $password)) {
+        $errors[] = "Ο κωδικός πρόσβασης πρέπει να έχει μήκος μεταξύ 4 και 10 χαρακτήρων και να περιέχει τουλάχιστον έναν αριθμό.";
+    }
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL) || strpos($email, '@') === false) {
+        $errors[] = "Το email δεν είναι έγκυρο.";
+    }
+
+    // Έλεγχος μοναδικότητας username και email
+    $sql = "SELECT * FROM users WHERE username='$username' OR email='$email'";
+    $result = $conn->query($sql);
+    if ($result->num_rows > 0) {
+        $errors[] = "Το όνομα χρήστη ή το email είναι ήδη καταχωρημένα.";
+    }
+
+    // Εισαγωγή χρήστη στη βάση δεδομένων αν δεν υπάρχουν σφάλματα
+    if (empty($errors)) {
+        $sql = "INSERT INTO users (first_name, last_name, username, password, email) VALUES ('$first_name', '$last_name', '$username', '$password', '$email')";
+        if ($conn->query($sql) === TRUE) {
+            echo "Η εγγραφή ήταν επιτυχής. Παρακαλώ συνδεθείτε.";
+        } else {
+            echo "Σφάλμα: " . $sql . "<br>" . $conn->error;
+        }
+    }
+}
+
+
+if (isset($_POST['login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    $query = "SELECT * FROM users WHERE username = ? AND password = ?";
+    $stmt = $conn->prepare($query);
+    $stmt->bind_param("ss", $username, $password);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows === 1) {
+        $user = $result->fetch_assoc();
+        setcookie('username', $user['username'], time() + (86400 * 30), "/"); // 86400 = 1 day
+        setcookie('first_name', $user['first_name'], time() + (86400 * 30), "/");
+        setcookie('last_name', $user['last_name'], time() + (86400 * 30), "/");
+        setcookie('email', $user['email'], time() + (86400 * 30), "/");
+
+        header("Location: feed.php");
+        exit();
+    } else {
+        $error = "Λάθος όνομα χρήστη ή κωδικός πρόσβασης.";
+    }
+}
+
+if (isset($_COOKIE['username'])) {
+    header("Location: feed.php");
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
