@@ -100,17 +100,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             
             if ($stmt->error) {
                 echo "Error: " . $stmt->error;
-            } else {
-                // Επιτυχής αποθήκευση της κράτησης
-                echo "Η κράτηση σας ολοκληρώθηκε με επιτυχία!";
+            }else{
                 header("Location: feed.php");
-                exit();
             }
         } else {
             $error = "Παρακαλώ συμπληρώστε όλα τα πεδία.";
         }
     }
 }
+
 ?>
 
 <div class="container">
@@ -126,6 +124,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <?php if ($error): ?>
         <p style="color: red;"><?php echo $error; ?></p>
     <?php endif; ?>
+
+
 
     <?php if ($step == 1): ?>
         <form id="submit_booking" method="post" action="booker.php?title=<?php echo urlencode($title); ?>">
@@ -145,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <p>Συνολικό Ποσό: <span id="total_amount_display"></span>€ (έκπτωση <span id="discount_display"></span>)</p>
         </form>
     <?php elseif ($step == 2): ?>
-        <form id="complete_booking" method="post" action="booker.php?title=<?php echo urlencode($title); ?>">
+        <form id="complete_booking" method="post" action="">
             <input type="hidden" id="step" name="step" value="2">
             <input type="hidden" name="start_date" value="<?php echo htmlspecialchars($start_date); ?>">
             <input type="hidden" name="end_date" value="<?php echo htmlspecialchars($end_date); ?>">
@@ -160,7 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($_COOKIE['email']); ?>" required><br>
 
             <p>Συνολικό ποσό: <?php echo htmlspecialchars($total_amount); ?>€</p>
-            <input type="button" id="submit_final" value="Ολοκλήρωση Κράτησης">
+            <input type="submit" id="submit_final" value="Ολοκλήρωση Κράτησης">
         </form>
 
     <?php endif; ?>

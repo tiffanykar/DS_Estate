@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", function() {
     const submit_date = document.getElementById('submit_date'); 
-    const completeBookingForm = document.getElementById('complete_booking');
     const submit_booking = document.getElementById('submit_booking');
     const pricePerNightElement = document.getElementById('price_per_night');
 
@@ -53,20 +52,18 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-
+    const completeBookingForm = document.getElementById('complete_booking');
     const submit_final = document.getElementById('submit_final');
     if (submit_final) {
         submit_final.addEventListener('click', function(event) {
             event.preventDefault();
-            console.log('Complete booking form submitted');
-            
-            // Submit the form via AJAX or any other method if needed
-            // For simplicity, we're just showing the alert and redirecting
-            alert('Η κράτηση σας ολοκληρώθηκε με επιτυχία!');
-            window.location.href = 'feed.php';
+            console.log("Complete booking form submitted");
+
+            completeBookingForm.submit();
+            alert("Η κράτηση σας ολοκληρώθηκε με επιτυχία!");
         });
     } else {
-        console.error('Complete booking form not found.');
+        console.error("Complete booking form not found.");
     }
 });
 
