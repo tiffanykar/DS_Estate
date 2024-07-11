@@ -4,7 +4,7 @@ document.getElementById('submit_listing').addEventListener('click', function() {
     let rooms = document.getElementById('rooms').value;
     let price_per_night = document.getElementById('price_per_night').value;
     let photo = document.getElementById('photo').value;
-    
+     
     if (!/^[a-zA-Z]+$/.test(title)) {
         alert("Ο τίτλος πρέπει να περιέχει μόνο χαρακτήρες.");
         return false;

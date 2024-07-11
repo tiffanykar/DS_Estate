@@ -19,7 +19,7 @@ $result = $conn->query($sql);
 <div class="container">
     <h1>Ακίνητα προς Μίσθωση</h1>
     <div class="listings">
-        <?php
+        <?php 
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 echo "<div class='listing'>";

@@ -107,7 +107,7 @@ if (isset($_COOKIE['username'])) {
         <form id="register-form" method="post" action="login_register.php" style="display: none;">
             <h2>Εγγραφή</h2>
             <label for="first_name">Όνομα:</label>
-            <input type="text" name="first_name" id="first_name" required>
+            <input type="text" name="first_name" id="first_name" required> 
             <label for="last_name">Επώνυμο:</label>
             <input type="text" name="last_name" id="last_name" required>
             <label for="username">Όνομα χρήστη:</label>

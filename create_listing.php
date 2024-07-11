@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $check = getimagesize($photo["tmp_name"]);
     if ($check === false) {
         echo "Το αρχείο δεν είναι έγκυρη εικόνα.";
-        exit;
+        exit; 
     }
 
     // Έλεγχος αν το αρχείο υπάρχει ήδη
