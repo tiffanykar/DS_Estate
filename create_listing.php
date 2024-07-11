@@ -25,7 +25,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $check = getimagesize($photo["tmp_name"]);
     if ($check === false) {
         echo "Το αρχείο δεν είναι έγκυρη εικόνα.";
-        exit; 
+        exit;
     }
 
     // Έλεγχος αν το αρχείο υπάρχει ήδη
@@ -67,6 +67,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <html lang="el">
 <head>
     <meta charset="UTF-8">
+    
     <title>Δημιουργία Αγγελίας</title>
     <link rel="stylesheet" href="styles.css">
     <script src="create_script.js" defer></script>

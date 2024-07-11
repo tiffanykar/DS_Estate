@@ -7,5 +7,5 @@ setcookie("email", "", time() - 3600, "/");
 
 // Ανακατεύθυνση στη σελίδα σύνδεσης
 header("Location: feed.php");
-exit(); 
+exit();
 ?>

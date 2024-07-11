@@ -56,7 +56,7 @@ if (isset($_POST['login'])) {
 
     if ($result->num_rows === 1) {
         $user = $result->fetch_assoc();
-        setcookie('username', $user['username'], time() + (86400 * 30), "/"); // 86400 = 1 day
+        setcookie('username', $user['username'], time() + (86400 * 30), "/", "", false, true); // 86400 = 1 day
         setcookie('first_name', $user['first_name'], time() + (86400 * 30), "/");
         setcookie('last_name', $user['last_name'], time() + (86400 * 30), "/");
         setcookie('email', $user['email'], time() + (86400 * 30), "/");
@@ -68,16 +68,14 @@ if (isset($_POST['login'])) {
     }
 }
 
-if (isset($_COOKIE['username'])) {
-    header("Location: feed.php");
-    exit();
-}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="el">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Σύνδεση/Εγγραφή</title>
     <link rel="stylesheet" href="styles.css">
     <script src="login_script.js" defer></script>
@@ -96,26 +94,26 @@ if (isset($_COOKIE['username'])) {
     <div id="login-register-forms">
         <form id="login-form" method="post" action="login_register.php">
             <h2>Σύνδεση</h2>
-            <label for="login-username">Όνομα χρήστη:</label>
-            <input type="text" name="username" id="login-username" required>
-            <label for="login-password">Κωδικός πρόσβασης:</label>
-            <input type="password" name="password" id="login-password" required>
-            <button type="submit" name="login">Σύνδεση</button>
+            <label for="login-username">Όνομα χρήστη:</label> <br><br>
+            <input type="text" name="username" id="login-username" required> <br><br>
+            <label for="login-password">Κωδικός πρόσβασης:</label> <br><br>
+            <input type="password" name="password" id="login-password" required> <br><br>
+            <button type="submit" name="login">Σύνδεση</button> <br><br>
             <p>Δεν έχετε λογαριασμό; <a href="#" id="show-register-form">Εγγραφή</a></p>
         </form>
 
         <form id="register-form" method="post" action="login_register.php" style="display: none;">
             <h2>Εγγραφή</h2>
-            <label for="first_name">Όνομα:</label>
-            <input type="text" name="first_name" id="first_name" required> 
-            <label for="last_name">Επώνυμο:</label>
-            <input type="text" name="last_name" id="last_name" required>
-            <label for="username">Όνομα χρήστη:</label>
-            <input type="text" name="username" id="username" required>
-            <label for="password">Κωδικός πρόσβασης:</label>
-            <input type="password" name="password" id="password" required>
-            <label for="email">E-mail:</label>
-            <input type="email" name="email" id="email" required>
+            <label for="first_name">Όνομα:</label> <br><br>
+            <input type="text" name="first_name" id="first_name" required> <br><br>
+            <label for="last_name">Επώνυμο:</label> <br><br>
+            <input type="text" name="last_name" id="last_name" required> <br><br>
+            <label for="username">Όνομα χρήστη:</label> <br><br>
+            <input type="text" name="username" id="username" required> <br><br>
+            <label for="password">Κωδικός πρόσβασης:</label> <br><br>
+            <input type="password" name="password" id="password" required> <br><br>
+            <label for="email">E-mail:</label> <br><br>
+            <input type="email" name="email" id="email" required> <br><br>
             <button type="submit" name="register">Εγγραφή</button>
             <p>Έχετε ήδη λογαριασμό; <a href="#" id="show-login-form">Σύνδεση</a></p>
         </form>

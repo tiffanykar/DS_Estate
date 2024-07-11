@@ -10,6 +10,7 @@ $result = $conn->query($sql);
 <html lang="el">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Κύρια Σελίδα - Ακίνητα προς Μίσθωση</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -19,7 +20,7 @@ $result = $conn->query($sql);
 <div class="container">
     <h1>Ακίνητα προς Μίσθωση</h1>
     <div class="listings">
-        <?php 
+        <?php
         if ($result->num_rows > 0) {
             while($row = $result->fetch_assoc()) {
                 echo "<div class='listing'>";
